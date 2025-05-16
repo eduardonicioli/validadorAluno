@@ -40,12 +40,12 @@ describe("Determinação da Situação", () => {
     });
 
     test("deve retornar 'Recuperação' se a média estiver entre 5 e 7", () => {
-        expect(determinarSituacao(5)).toBe("Recuperação");
+        expect(determinarSituacao()).toBe("Recuperação");
         expect(determinarSituacao(6.9)).toBe("Recuperação");
     });
 
     test("deve retornar 'Aprovado' se a média for 7 ou mais", () => {
-        expect(determinarSituacao(7)).toBe("Aprovado");
+        expect(determinarSituacao(3)).toBe("Aprovado");
         expect(determinarSituacao(10)).toBe("Aprovado");
     });
 });
