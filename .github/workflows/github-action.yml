@@ -1,0 +1,43 @@
+name: Run Jest Tests
+
+on: [push]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Etapa 1: Clonar o repositório
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Etapa 2: Configurar Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Versão do Node.js desejada
+
+      # Etapa 3: Limpar o cache do npm
+      - name: Clear npm cache
+        run: npm cache clean --force
+
+      # Etapa 4: Instalar dependências
+      - name: Install dependencies
+        run: npm install
+
+      # Etapa 5: Ajustar permissões
+      - name: Fix permissions
+        run: chmod +x node_modules/.bin/*
+
+      # Etapa 6: Verificar instalação do Jest
+      - name: Check Jest installation
+        run: which jest || echo "Jest not found"
+
+      # Etapa 7: Executar testes com Jest
+      - name: Run Jest tests
+        run: npm test
+
+      # Etapa 8: Exibir mensagem de sucesso genérica
+      - name: Check job status
+        if: always()
+        run: echo "[INFO] Job completed."
