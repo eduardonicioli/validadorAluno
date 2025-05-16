@@ -1,3 +1,44 @@
+// calculo.js
+
+/**
+ * Função para validar se uma nota é válida (número entre 0 e 10)
+ * @param {string|number} nota - Valor da nota inserido pelo usuário
+ * @returns {boolean} true se for válida, false caso contrário
+ */
+function validarNota(nota) {
+    if (nota === null || nota === undefined) return false;
+
+    const valor = typeof nota === "string" ? parseFloat(nota) : nota;
+
+    return typeof valor === "number" && !isNaN(valor) && valor >= 0 && valor <= 10;
+}
+
+/**
+ * Função para calcular a média de duas notas
+ * @param {number} nota1 - Primeira nota do aluno
+ * @param {number} nota2 - Segunda nota do aluno
+ * @returns {number|null} Média calculada ou null em caso de erro
+ */
+function calcularMedia(nota1, nota2) {
+    if (!validarNota(nota1) || !validarNota(nota2)) return null;
+
+    return (parseFloat(nota1) + parseFloat(nota2)) / 2;
+}
+
+/**
+ * Função para determinar a situação do aluno com base na média
+ * @param {number} media - Média calculada
+ * @returns {string} Situação do aluno: Aprovado, Recuperação ou Reprovado
+ */
+function determinarSituacao(media) {
+    if (media < 5) return "Reprovado";
+    if (media < 7) return "Recuperação";
+    return "Aprovado";
+}
+
+/**
+ * Lógica principal que escuta o envio do formulário e atualiza o DOM
+ */
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form");
     const resultDiv = document.createElement("div");
@@ -21,38 +62,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Pegando os valores dos campos
         const nome = document.getElementById("nome").value.trim();
-        const nota1 = parseFloat(document.getElementById("nota1").value);
-        const nota2 = parseFloat(document.getElementById("nota2").value);
+        const nota1 = document.getElementById("nota1").value;
+        const nota2 = document.getElementById("nota2").value;
 
-        // Verificando validade das notas
-        if (isNaN(nota1) || isNaN(nota2)) {
-            exibirErro("Por favor, insira valores numéricos válidos para as notas.");
-            return;
-        }
-
-        if (nota1 < 0 || nota1 > 10 || nota2 < 0 || nota2 > 10) {
+        // Validação das notas
+        if (!validarNota(nota1) || !validarNota(nota2)) {
             exibirErro("As notas devem estar entre 0 e 10.");
             return;
         }
 
-        // Cálculo da média
-        const media = (nota1 + nota2) / 2;
+        const media = calcularMedia(nota1, nota2);
 
-        // Determinar a situação do aluno
-        let situacao = "";
-        if (media < 5) {
-            situacao = "Reprovado";
-            resultDiv.style.backgroundColor = "#F8B8B8"; // Vermelho claro
-        } else if (media < 7) {
-            situacao = "Recuperação";
-            resultDiv.style.backgroundColor = "#FFE082"; // Amarelo claro
-        } else {
-            situacao = "Aprovado";
-            resultDiv.style.backgroundColor = "#C8E6C9"; // Verde claro
+        if (media === null) {
+            exibirErro("Por favor, insira valores numéricos válidos para as notas.");
+            return;
         }
+
+        const situacao = determinarSituacao(media);
 
         // Exibir resultado
         resultDiv.style.color = "#333";
+        if (situacao === "Aprovado") {
+            resultDiv.style.backgroundColor = "#C8E6C9"; // Verde claro
+        } else if (situacao === "Recuperação") {
+            resultDiv.style.backgroundColor = "#FFE082"; // Amarelo claro
+        } else {
+            resultDiv.style.backgroundColor = "#F8B8B8"; // Vermelho claro
+        }
+
         resultDiv.innerHTML = `
             <strong>Aluno:</strong> ${nome}<br>
             <strong>Média:</strong> ${media.toFixed(1)}<br>
@@ -60,9 +97,20 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
     });
 
+    /**
+     * Função auxiliar para exibir mensagens de erro
+     * @param {string} mensagem - Mensagem a ser exibida
+     */
     function exibirErro(mensagem) {
         resultDiv.style.backgroundColor = "#FFCCBC"; // Laranja claro
         resultDiv.style.color = "#D32F2F";
         resultDiv.textContent = mensagem;
     }
 });
+
+// Exportar funções para uso nos testes
+module.exports = {
+    validarNota,
+    calcularMedia,
+    determinarSituacao
+};
