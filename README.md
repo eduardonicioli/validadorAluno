@@ -8,9 +8,9 @@ Este é um projeto simples que calcula a média escolar de um aluno com base em 
 
 ## 🔧 Status
 
-[![Build](https://github.com/seu-usuario/validadoraluno/actions/workflows/sonarcloud.yml/badge.svg )](https://github.com/seu-usuario/validadoraluno/actions )  
-[![SonarCloud](https://sonarcloud.io/api/project_badges  measure?project=seu-usuario_validadoraluno&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=seu-usuario_validadoraluno )  
-[![Cobertura de Testes](https://sonarcloud.io/api/project_badges/measure?project=seu-usuario_validadoraluno&metric=coverage )](https://sonarcloud.io/summary/new_code?id=seu-usuario_validadoraluno )
+[![Build](https://github.com/eduardonicioli/validadoraluno/actions/workflows/sonarcloud.yml/badge.svg )](https://github.com/eduardonicioli/validadoraluno/actions )  
+[![SonarCloud](https://sonarcloud.io/api/project_badges  measure?project=eduardonicioli_validadoraluno&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=eduardonicioli_validadoraluno )  
+[![Cobertura de Testes](https://sonarcloud.io/api/project_badges/measure?project=eduardonicioli_validadoraluno&metric=coverage )](https://sonarcloud.io/summary/new_code?id=eduardonicioli_validadoraluno )
 
 ---
 
